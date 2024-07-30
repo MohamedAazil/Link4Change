@@ -1,0 +1,24 @@
+
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<section>
+    <h2>Investors</h2>
+    <form id="investorForm" method="post" action="{% url 'investors' %}">
+        {% csrf_token %}
+        <input type="text" name="name" placeholder="Your Name" required>
+        <input type="text" name="tags" placeholder="Interests (comma-separated)" required>
+        <button type="submit">Submit</button>
+    </form>
+    <h3>Matches</h3>
+    <div id="matches">
+        {% for investor, entrepreneur in matches %}
+            <div>
+                <h4>{{ investor.name }} matched with {{ entrepreneur.title }}</h4>
+                <p>{{ entrepreneur.description }}</p>
+                <p>Tags: {{ entrepreneur.tags }}</p>
+            </div>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}
